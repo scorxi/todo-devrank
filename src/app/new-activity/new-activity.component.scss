@@ -1,0 +1,52 @@
+@import "src/_variables.scss";
+
+.app-new-activity {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+
+  &-placeholder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 12px;
+    align-items: center;
+  }
+}
+
+.app-new-activity input {
+  border: none;
+  outline: none;
+  background: none;
+  width: auto;
+  height: 35px;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: Poppins, "Helvetica Neue", sans-serif;
+  @include apply-color(text-primary)
+}
+
+.app-new-activity button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 159px;
+  height: 54px;
+  border: #16ABF8;
+  border-radius: 45px;
+  padding: 13px 21px 13px 14px;
+  font-family: Poppins, "Helvetica Neue", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  @include apply-background-color(primary);
+  @include apply-color(text-app-title)
+}
+
+.back-button, .edit-button {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}

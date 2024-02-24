@@ -1,0 +1,51 @@
+// Breakpoints
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @error "Invalid breakpoint: #{$breakpoint}. Please use one of: #{map-keys($breakpoints)}";
+  }
+}
+
+// Colors
+$colors: (
+  primary: #16ABF8,
+  text-app-title: #FFFFFF,
+  text-primary: #111111,
+  primary-background: #F4F4F4,
+  text-grey: #888888,
+  pill-very-high: #ED4C5C,
+  pill-high: #F8A541,
+  pill-medium: #00A790,
+  pill-low: #428BC1,
+  pill-very-low: #8942C1,
+  red-alert: #ED4C5C
+);
+
+@mixin apply-color($color) {
+  @if map-has-key($colors, $color) {
+    color: map-get($colors, $color);
+  } @else {
+    @error "Color `#{$color}` not found in color scheme.";
+  }
+}
+
+@mixin apply-background-color($color) {
+  @if map-has-key($colors, $color) {
+    background-color: map-get($colors, $color);
+  } @else {
+    @error "Color `#{$color}` not found in color scheme.";
+  }
+}
+

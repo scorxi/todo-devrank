@@ -1,0 +1,21 @@
+<div class="app-new-activity">
+  <div class="app-new-activity-placeholder">
+    <div data-cy="todo-back-button" class="back-button">
+      <mat-icon svgIcon="backArrow"></mat-icon>
+    </div>
+    <h1 [hidden]="isEdit">New Activity</h1>
+    <input *ngIf="isEdit" type="text" placeholder="New Activity">
+    <div (click)="onEditClick()" data-cy="todo-title-edit-button" class="edit-button">
+      <mat-icon svgIcon="editButton"></mat-icon>
+    </div>
+  </div>
+  <div data-cy="todo-add-button">
+    <button type="button">
+      <mat-icon svgIcon="plus"></mat-icon> Tambah
+    </button>
+  </div>
+</div>
+
+<div data-cy="todo-empty-state" class="todo-empty-state">
+  <mat-icon svgIcon="todoEmptyState"></mat-icon>
+</div>
