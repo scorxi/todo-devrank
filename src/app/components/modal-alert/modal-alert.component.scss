@@ -1,0 +1,57 @@
+@import "src/_variables.scss";
+
+.modal-alert-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: center;
+    width: 320px;
+    height: 300px;
+    border-radius: 18px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.2);
+    @include respond-to(md) {
+        width: 490px;
+        height: 355px;
+    }
+}
+
+.modal-alert-caption {
+    font-size: 18px;
+    font-family: Poppins;
+    text-align: center;
+}
+
+.modal-alert-action {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.modal-alert-action button {
+    width: 150px;
+    height: 54px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Poppins;
+    text-align: center;
+    padding: 13px 14px 13px 14px;
+    border-radius: 32px;
+}
+
+.modal-alert-action .button-cancel {
+    @include apply-background-color(primary-background);
+    color: #4A4A4A;
+    border: 1px solid #F4F4F4; 
+}
+
+.modal-alert-action .button-approve {
+    @include apply-background-color(pill-very-high);
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF; 
+}
+
+
+.modal-alert-container p {
+    margin: 0;
+}
