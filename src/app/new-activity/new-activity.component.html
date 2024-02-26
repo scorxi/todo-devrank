@@ -3,19 +3,23 @@
     <div data-cy="todo-back-button" class="back-button">
       <mat-icon svgIcon="backArrow"></mat-icon>
     </div>
-    <h1 [hidden]="isEdit">New Activity</h1>
-    <input *ngIf="isEdit" type="text" placeholder="New Activity">
+    <h1 data-cy="todo-title" [hidden]="isEdit">New Activity</h1>
+    <input *ngIf="isEdit" type="text" placeholder="New Activity" matInput [(ngModel)]="activityName">
     <div (click)="onEditClick()" data-cy="todo-title-edit-button" class="edit-button">
       <mat-icon svgIcon="editButton"></mat-icon>
     </div>
   </div>
-  <div data-cy="todo-add-button">
-    <button type="button">
+  <div>
+    <button data-cy="todo-add-button" type="button" (click)="onAddClick()">
       <mat-icon svgIcon="plus"></mat-icon> Tambah
     </button>
   </div>
 </div>
 
-<div data-cy="todo-empty-state" class="todo-empty-state">
-  <mat-icon svgIcon="todoEmptyState"></mat-icon>
+<div *ngIf="!isDialog" data-cy="todo-empty-state" class="empty-state">
+  <mat-icon style="width: 541px; height: 413px;" svgIcon="todoEmptyState"></mat-icon>
+</div>
+
+<div [ngClass]="isDialog ? 'add-list-dialog-show' : 'add-list-dialog'">
+  <app-modal-new-list (isDialog)="onCloseDialog()"></app-modal-new-list>
 </div>

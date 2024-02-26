@@ -30,7 +30,8 @@ $colors: (
   pill-medium: #00A790,
   pill-low: #428BC1,
   pill-very-low: #8942C1,
-  red-alert: #ED4C5C
+  red-alert: #ED4C5C,
+  grey-line: #E5E5E5
 );
 
 @mixin apply-color($color) {

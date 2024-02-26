@@ -5,6 +5,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 48px;
 }
 
 .app-activity button {
@@ -22,4 +23,21 @@
   font-weight: 600;
   @include apply-background-color(primary);
   @include apply-color(text-app-title)
+}
+
+.fetch-failed {
+  display: none;
+}
+
+.fetch-failed-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999; /* Ensure it's on top of other elements */
+  transition: ease-in 150ms;
 }

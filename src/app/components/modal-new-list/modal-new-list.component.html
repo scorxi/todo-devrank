@@ -1,20 +1,22 @@
 <div data-cy="modal-add" class="modal-add-container">
   <div class="modal-add-header">
     <div data-cy="modal-add-title">Tambah List Item</div>
-    <div data-cy="modal-add-close-button" class="close-button-container">
+    <div data-cy="modal-add-close-button" class="close-button-container" (click)="onCloseClick()">
       <mat-icon svgIcon="close-button"></mat-icon>
     </div>
   </div>
   <div class="modal-add-content">
     <div class="modal-add-input">
       <label data-cy="modal-add-name-title" for="item-list">NAMA LIST ITEM</label>
-      <input data-cy="modal-add-name-input" type="text" placeholder="Tambahkan nama list item">
+      <input data-cy="modal-add-name-input" type="text" placeholder="Tambahkan nama list item" matInput
+        [(ngModel)]="listItemName">
     </div>
     <div class="modal-add-select">
       <label data-cy="modal-add-priority-title" for="item-pill">PRIORITY</label>
-      <select data-cy="modal-add-priority-dropdown" name="item-pill" id="pill-select" class="select-options">
-        <option disabled style="background-color: #E5E5E5;">Pilih Priority</option>
-        <option data-cy="modal-add-priority-very-high" value="very-high" selected>Very High</option>
+      <select data-cy="modal-add-priority-dropdown" name="item-pill" id="pill-select" class="select-options" matInput
+        [(ngModel)]="priority">
+        <option disabled selected>Pilih Priority</option>
+        <option data-cy="modal-add-priority-very-high" value="very-high">Very High</option>
         <option data-cy="modal-add-priority-high" value="high">High</option>
         <option data-cy="modal-add-priority-medium" value="medium">Medium</option>
         <option data-cy="modal-add-priority-low" value="low">Low</option>
@@ -27,7 +29,7 @@
   </div>
   <div class="modal-add-footer">
     <div>
-      <button data-cy="modal-add-save-button" type="button">Simpan</button>
+      <button data-cy="modal-add-save-button" type="button" (click)="!isDialog" [disabled]="!isAddValid">Simpan</button>
     </div>
   </div>
 </div>

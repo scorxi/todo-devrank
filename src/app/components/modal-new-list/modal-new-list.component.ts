@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -51,7 +51,16 @@ const purplePill = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" 
   templateUrl: './modal-new-list.component.html',
   styleUrls: ['./modal-new-list.component.scss']
 })
-export class ModalNewListComponent {
+export class ModalNewListComponent implements DoCheck {
+  @Input()
+  listItemName: string;
+  @Input()
+  priority: string;
+  @Output()
+  isDialog: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
+  isAddValid: boolean = false;
+
   constructor(
     // public dialogRef: MatDialogRef<ModalNewListComponent>,
     iconRegistry: MatIconRegistry, sanitizer: DomSanitizer
@@ -65,5 +74,15 @@ export class ModalNewListComponent {
     iconRegistry.addSvgIconLiteral('green-pill', sanitizer.bypassSecurityTrustHtml(greenPill))
     iconRegistry.addSvgIconLiteral('blue-pill', sanitizer.bypassSecurityTrustHtml(bluePill))
     iconRegistry.addSvgIconLiteral('purple-pill', sanitizer.bypassSecurityTrustHtml(purplePill))
+  }
+
+  ngDoCheck(): void {
+    if (this.listItemName && this.priority) {
+      this.isAddValid = true;
+    }
+  }
+
+  onCloseClick() {
+    this.isDialog.emit(true)
   }
 }

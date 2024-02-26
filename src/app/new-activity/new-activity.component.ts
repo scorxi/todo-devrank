@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
+import { ModalNewListComponent } from '../components/modal-new-list/modal-new-list.component';
 
 const backIcon = `
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,8 +79,12 @@ const todoEmptyState = `
 })
 export class NewActivityComponent {
   isEdit: boolean = false;
+  activityName: any;
+  isDialog: boolean;
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(
+    iconRegistry: MatIconRegistry, 
+    sanitizer: DomSanitizer) {
     iconRegistry.addSvgIconLiteral('backArrow', sanitizer.bypassSecurityTrustHtml(backIcon))
     iconRegistry.addSvgIconLiteral('editButton', sanitizer.bypassSecurityTrustHtml(editIcon))
     iconRegistry.addSvgIconLiteral('todoEmptyState', sanitizer.bypassSecurityTrustHtml(todoEmptyState))
@@ -88,4 +94,13 @@ export class NewActivityComponent {
   onEditClick() {
     this.isEdit = true
   }
+
+  onAddClick() {
+    this.isDialog = true;
+  }
+
+  onCloseDialog() {
+    this.isDialog = false;
+  }
+
 }

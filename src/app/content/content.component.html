@@ -3,10 +3,24 @@
     <h1>Activity</h1>
   </div>
   <div data-cy="activity-add-button">
-    <button routerLink="/new-activity" type="button"><mat-icon svgIcon="plus"></mat-icon> Tambah</button>
+    <button routerLink="/new-activity" type="button">
+      <mat-icon svgIcon="plus"></mat-icon> Tambah
+    </button>
   </div>
+</div>
+
+<div class="activity-empty-state" class="empty-state">
+  <mat-icon style="width: 541px; height: 413px;" svgIcon="activityEmptyState"></mat-icon>
 </div>
 
 <div class="app-activity-list">
 
 </div>
+
+<div [ngClass]="isAlertFailed ? 'fetch-failed-show' : 'fetch-failed'">
+  <app-modal-alert></app-modal-alert>
+</div>
+
+<!-- <div class="empty-state">
+  <app-alert-success></app-alert-success>
+</div> -->
