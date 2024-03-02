@@ -12,6 +12,25 @@ export interface ActivityData {
     updated_at?: Date
 }
 
+export interface ActivityDetail {
+    id: number,
+    title: string,
+    created_at: string,
+    todo_items: TodoItems[]
+}
+
+export interface TodoItems {
+    id: number, 
+    title: string,
+    activity_group_id: number, 
+    is_active: number,
+    priority: string
+}
+
+export interface PatchActivityPayload {
+    title: string
+}
+
 export interface addActivityPayload {
     title: string,
     email: string

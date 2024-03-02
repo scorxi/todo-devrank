@@ -22,7 +22,7 @@ export class ActivityListService {
       }))
   }
 
-  getActivityById(activityId: number): Observable<ActivityDetail> {
+  getActivityById(activityId: string | null): Observable<ActivityDetail> {
     return this.http.get<ActivityDetail>(`${this.baseUrl}/activity-groups/${activityId}`)
       .pipe(map((response) => {
         return response;

@@ -1,7 +1,12 @@
-import { Component, EventEmitter, Inject, Input, Output} from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+
+export interface alertData {
+  type: string,
+  itemName: string
+}
 
 const alertIcon = `
 <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -10,25 +15,18 @@ const alertIcon = `
 </svg>
 `
 
-export interface alertData {
-  activity: boolean,
-  itemName: string
-}
-
 @Component({
-  selector: 'app-modal-alert',
-  templateUrl: './modal-alert.component.html',
-  styleUrls: ['./modal-alert.component.scss']
+  selector: 'app-alert-dialog',
+  templateUrl: './alert-dialog.component.html',
+  styleUrls: ['./alert-dialog.component.scss']
 })
-export class ModalAlertComponent {
+export class AlertDialogComponent {
+
   constructor(
-    public dialogRef: MatDialogRef<ModalAlertComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: alertData,
-    iconRegistry: MatIconRegistry, 
-    sanitizer: DomSanitizer
-  ) {
-    iconRegistry.addSvgIconLiteral('alert-icon', sanitizer.bypassSecurityTrustHtml(alertIcon))
-  }
+    icongRegistry: MatIconRegistry, sanitizer: DomSanitizer,
+    public dialogRef: MatDialogRef<AlertDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: alertData
+  ) {icongRegistry.addSvgIconLiteral('alert-icon', sanitizer.bypassSecurityTrustHtml(alertIcon))}
 
   onDelete() {
     this.dialogRef.close('delete')

@@ -1,18 +1,12 @@
 @import "src/_variables.scss";
 
-.alert-success {
+.alert-success-container {
     display: flex;
-    align-items: center;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
     gap: 12px;
-    padding-left: 12px;
-    width: 320px;
-    height: 58px;
-    border-radius: 18px;
-    font-weight: 600;
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
-    @include respond-to(md) {
-        width: 490px;
-    }
+    width: 490px;
+    padding: 4px 24px;
+    @include apply-background-color(text-app-title)
 }

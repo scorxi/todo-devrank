@@ -1,0 +1,12 @@
+<div data-cy="modal-delete" class="alert-delete-container">
+  <div data-cy="modal-delete-icon" class="alert-header">
+    <mat-icon style="width: 84px; height: 84px;" svgIcon="alert-icon"></mat-icon>
+  </div>
+  <div data-cy="modal-delete-title" class="alert-message">
+    <p>Apakah Anda yakin akan menghapus {{'' + data?.type}} <strong>"{{data?.itemName}}"</strong></p>
+  </div>
+  <div class="alert-actions">
+    <button data-cy="modal-delete-cancel-button" class="button-cancel" type="button" (click)="onCancel()">Batal</button>
+    <button data-cy="modal-delete-delete-button" class="button-delete" type="button" (click)="onDelete()">Hapus</button>
+  </div>
+</div>

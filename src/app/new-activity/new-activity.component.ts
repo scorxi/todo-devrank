@@ -1,8 +1,9 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {MatIconRegistry} from "@angular/material/icon";
-import {DomSanitizer} from "@angular/platform-browser";
-import { ModalNewListComponent } from '../components/modal-new-list/modal-new-list.component';
+import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
+import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer } from "@angular/platform-browser";
+import { ActivatedRoute} from '@angular/router';
+import { ActivityListService } from 'src/services/activity-list.service';
 
 const backIcon = `
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,14 +78,17 @@ const todoEmptyState = `
   templateUrl: './new-activity.component.html',
   styleUrls: ['./new-activity.component.scss']
 })
-export class NewActivityComponent {
+export class NewActivityComponent implements OnInit {
   isEdit: boolean = false;
-  activityName: any;
+  activityName: string;
   isDialog: boolean;
 
   constructor(
     iconRegistry: MatIconRegistry, 
-    sanitizer: DomSanitizer) {
+    sanitizer: DomSanitizer,
+    private activityService: ActivityListService,
+    private route: ActivatedRoute
+    ) {
     iconRegistry.addSvgIconLiteral('backArrow', sanitizer.bypassSecurityTrustHtml(backIcon))
     iconRegistry.addSvgIconLiteral('editButton', sanitizer.bypassSecurityTrustHtml(editIcon))
     iconRegistry.addSvgIconLiteral('todoEmptyState', sanitizer.bypassSecurityTrustHtml(todoEmptyState))
@@ -104,6 +108,17 @@ export class NewActivityComponent {
 
   onCloseDialog() {
     this.isDialog = false;
+  }
+
+  ngOnInit(): void {
+    const activityId = this.route.snapshot.paramMap.get('id');
+    this.activityService.getActivityById(activityId).pipe(take(1)).subscribe((response) => {
+      if (response != null) {
+        
+      }
+    }, (error) => {
+      console.log(error); 
+    })
   }
 
 }

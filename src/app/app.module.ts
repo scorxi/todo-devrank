@@ -7,17 +7,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContentComponent } from './content/content.component';
 import { MatIconModule } from "@angular/material/icon";
+import { MatDialogModule } from '@angular/material/dialog';
 import { NewActivityComponent } from './new-activity/new-activity.component';
 import { ModalNewListComponent } from './components/modal-new-list/modal-new-list.component';
-import { ModalAlertComponent } from './components/modal-alert/modal-alert.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatInputModule} from "@angular/material/input";
-import { AlertSuccessComponent } from './components/alert-success/alert-success.component';
-import { MatDialogModule } from "@angular/material/dialog";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
 import { HttpClientModule } from '@angular/common/http';
-import { AlertFailedComponent } from './components/alert-failed/alert-failed.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { AlertSuccessComponent } from './components/alert-success/alert-success.component';
+import { AlertFailedComponent } from './components/alert-failed/alert-failed.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +26,10 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     ContentComponent,
     NewActivityComponent,
     ModalNewListComponent,
-    ModalAlertComponent,
+    SpinnerComponent,
+    AlertDialogComponent,
     AlertSuccessComponent,
-    AlertFailedComponent,
-    SpinnerComponent
+    AlertFailedComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +39,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatDialogModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

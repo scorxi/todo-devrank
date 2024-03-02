@@ -4,13 +4,14 @@ import {DomSanitizer} from "@angular/platform-browser";
 import { ActivityListService } from 'src/services/activity-list.service';
 import { take } from 'rxjs';
 import { LoaderService } from 'src/services/loader.service';
-import { ActivityData, ActivityList, addActivityPayload, AddActivityResponse } from 'src/models/activity';
+import { ActivityData, ActivityList, AddActivityResponse } from 'src/models/activity';
 import * as dayjs from 'dayjs';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalAlertComponent } from '../components/modal-alert/modal-alert.component';
+import { AlertDialogComponent } from '../components/alert-dialog/alert-dialog.component';
+import { AlertSuccessComponent } from '../components/alert-success/alert-success.component';
+import { AlertFailedComponent } from '../components/alert-failed/alert-failed.component';
 
-dayjs.locale('id',  {
+dayjs.locale('id', {
   months: [] = [
     'Januari',
     'Februari',
@@ -141,22 +142,32 @@ export class ContentComponent implements OnInit {
     })
   }
 
-  onDeleteClick(activityId: number) {
-    const dialogRef = this.dialog.open(ModalAlertComponent, {
-      width: '412px',
+  onDeleteClick(activityId: number, itemName: string) {
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: {
+        type: 'activity',
+        itemName: itemName
+      },
       disableClose: false
     })
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'delete') {
-        console.log(result);
+        this.deleteActivityById(activityId);
       } else { /* do nothing */}
     })
   }
 
   deleteActivityById(activityId: number) {
     this.activityService.deleteActivity(activityId).pipe(take(1)).subscribe((response) => {
+      this.dialog.open(AlertSuccessComponent, { data: {type: 'Activity'}})
       this.getAllActivity()
+    }, () => {
+      this.dialog.open(AlertFailedComponent, {
+        data: {
+          message: 'Terjadi kesalahan. Gagal menghapus activity'
+        }
+      })
     });
   }
 

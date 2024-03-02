@@ -3,7 +3,7 @@
     <div routerLink="/" data-cy="todo-back-button" class="back-button">
       <mat-icon svgIcon="backArrow"></mat-icon>
     </div>
-    <input type="text" placeholder="New Activity" value="New Activity" matInput [(ngModel)]="activityName"
+    <input type="text" placeholder="New Activity" (value)="activityName" matInput [(ngModel)]="activityName"
       id="titleInput" maxlength="32">
     <span (click)="onEditClick()" data-cy="todo-title-edit-button" class="edit-button">
       <mat-icon svgIcon="editButton"></mat-icon>
@@ -14,6 +14,10 @@
       <mat-icon svgIcon="plus"></mat-icon> Tambah
     </button>
   </div>
+</div>
+
+<div class="todo-item-list-container">
+
 </div>
 
 <div *ngIf="!isDialog" data-cy="todo-empty-state" class="empty-state">
