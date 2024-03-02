@@ -18,20 +18,24 @@
 .app-container {
   width: 100%;
   padding: 0 8px 0 8px;
-  @include respond-to(sm) {
+  @include respond-to(xs) {
     max-width: 368px;
   }
 
+  @include respond-to(sm) {
+    max-width: 530px;
+  }
+
   @include respond-to(md) {
-    max-width: 412px;
+    max-width: 582px;
   }
 
   @include respond-to(lg) {
-    max-width: 768px;
+    max-width: 880px;
   }
 
   @include respond-to(xl) {
-    max-width: 1000px;
+    max-width: 1174px;
   }
 }
 

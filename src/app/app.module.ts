@@ -17,6 +17,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { HttpClientModule } from '@angular/common/http';
 import { AlertFailedComponent } from './components/alert-failed/alert-failed.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     ModalNewListComponent,
     ModalAlertComponent,
     AlertSuccessComponent,
-    AlertFailedComponent
+    AlertFailedComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

@@ -41,3 +41,43 @@
   z-index: 999; /* Ensure it's on top of other elements */
   transition: ease-in 150ms;
 }
+
+.app-activity-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  gap: 12px;
+}
+
+.activity-list-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 150px;
+  height: 150px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  border-radius: 24px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  @include apply-background-color(text-app-title);
+  
+  @include respond-to(sm) {
+    width: 232px;
+    height: 233px;
+    font-size: 1rem;
+  }
+
+  @include respond-to(md) {
+    padding: 12px 24px;
+    width: 236px;
+    height: 235px;
+  }
+}
+
+.activity-item-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @include apply-color(text-grey);
+}
+

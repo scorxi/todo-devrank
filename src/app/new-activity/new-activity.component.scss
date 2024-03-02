@@ -28,6 +28,19 @@
   @include apply-color(text-primary)
 }
 
+input::placeholder {
+  @include apply-color(text-primary)
+}
+
+#titleInput {
+  width: 290px;
+}
+
+#titleInput:focus {
+  width: 580px;
+  border-bottom: 1px solid #111111;
+}
+
 .app-new-activity button {
   display: flex;
   align-items: center;

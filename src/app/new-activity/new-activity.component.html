@@ -1,13 +1,13 @@
 <div class="app-new-activity">
   <div class="app-new-activity-placeholder">
-    <div data-cy="todo-back-button" class="back-button">
+    <div routerLink="/" data-cy="todo-back-button" class="back-button">
       <mat-icon svgIcon="backArrow"></mat-icon>
     </div>
-    <h1 data-cy="todo-title" [hidden]="isEdit">New Activity</h1>
-    <input *ngIf="isEdit" type="text" placeholder="New Activity" matInput [(ngModel)]="activityName">
-    <div (click)="onEditClick()" data-cy="todo-title-edit-button" class="edit-button">
+    <input type="text" placeholder="New Activity" value="New Activity" matInput [(ngModel)]="activityName"
+      id="titleInput" maxlength="32">
+    <span (click)="onEditClick()" data-cy="todo-title-edit-button" class="edit-button">
       <mat-icon svgIcon="editButton"></mat-icon>
-    </div>
+    </span>
   </div>
   <div>
     <button data-cy="todo-add-button" type="button" (click)="onAddClick()">

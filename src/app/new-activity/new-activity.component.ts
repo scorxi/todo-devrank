@@ -92,7 +92,10 @@ export class NewActivityComponent {
   }
 
   onEditClick() {
-    this.isEdit = true
+    const titleInput = document.getElementById('titleInput') as HTMLInputElement
+    titleInput?.focus();
+    const length = titleInput.value.length;
+    titleInput.setSelectionRange(length, length);
   }
 
   onAddClick() {

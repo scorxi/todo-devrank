@@ -9,12 +9,20 @@
   </div>
 </div>
 
-<div class="activity-empty-state" class="empty-state">
+<div *ngIf="false" class="activity-empty-state" class="empty-state">
   <mat-icon style="width: 541px; height: 413px;" svgIcon="activityEmptyState"></mat-icon>
 </div>
 
-<div class="app-activity-list">
-
+<div *ngIf="activityData" class="app-activity-list-container">
+  <div *ngFor="let item of activityData; let i = index" class="activity-list-card">
+    <h3 class="activity-item-title">{{item.title}}</h3>
+    <div class="activity-item-footer">
+      <div class="activity-item-date">{{dayjs(item.created_at).format('DD MMMM YYYY')}}</div>
+      <div class="activity-item-delete-button">
+        <mat-icon svgIcon="delete-icon"></mat-icon>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div [ngClass]="isAlertFailed ? 'fetch-failed-show' : 'fetch-failed'">

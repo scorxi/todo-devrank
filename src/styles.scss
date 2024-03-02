@@ -8,6 +8,7 @@ body {
   position: relative;
   margin: 0; 
   font-family: Poppins, "Helvetica Neue", sans-serif; 
+  @include apply-background-color(primary-background)
 }
 
 button:hover {

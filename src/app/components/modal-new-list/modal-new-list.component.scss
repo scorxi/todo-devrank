@@ -19,6 +19,7 @@
     @include respond-to(lg) {
         width: 830px;
     }
+    @include apply-background-color(text-app-title)
 }
 
 .modal-add-container label {
