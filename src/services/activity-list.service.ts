@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import { LoaderService } from './loader.service';
-import { ActivityList, addActivityPayload, AddActivityResponse } from 'src/models/activity';
+import { ActivityDetail, ActivityList, addActivityPayload, AddActivityResponse, PatchActivityPayload } from 'src/models/activity';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ActivityListService {
   options = { withCredentials: false }
   baseUrl: string = 'https://todo.api.devcode.gethired.id';
@@ -22,8 +22,22 @@ export class ActivityListService {
       }))
   }
 
+  getActivityById(activityId: number): Observable<ActivityDetail> {
+    return this.http.get<ActivityDetail>(`${this.baseUrl}/activity-groups/${activityId}`)
+      .pipe(map((response) => {
+        return response;
+      }))
+  }
+
   addAnActivity(payload: addActivityPayload): Observable<AddActivityResponse> {
     return this.http.post<AddActivityResponse>(`${this.baseUrl}/activity-groups`, payload, this.options)
+      .pipe(map((response) => {
+        return response;
+      }))
+  }
+
+  updateActivity(payload: PatchActivityPayload, activityId: number): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/activity-groups/${activityId}`, payload.title)
       .pipe(map((response) => {
         return response;
       }))
