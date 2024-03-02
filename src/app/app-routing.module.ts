@@ -4,8 +4,8 @@ import { ContentComponent } from './content/content.component';
 import { NewActivityComponent } from './new-activity/new-activity.component';
 
 const routes: Routes = [
-  {path: '', component: ContentComponent},
-  {path: 'new-activity', component: NewActivityComponent},
+  {path: '', component: ContentComponent, pathMatch: 'full'},
+  {path: 'new-activity/:id', component: NewActivityComponent},
 ];
 
 @NgModule({

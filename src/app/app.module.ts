@@ -13,7 +13,7 @@ import { ModalAlertComponent } from './components/modal-alert/modal-alert.compon
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import { AlertSuccessComponent } from './components/alert-success/alert-success.component';
-import {MatDialogModule} from "@angular/material/dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { HttpClientModule } from '@angular/common/http';
 import { AlertFailedComponent } from './components/alert-failed/alert-failed.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";

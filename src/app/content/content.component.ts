@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
-import { AddActivityListService } from 'src/services/add-activity-list.service';
+import { ActivityListService } from 'src/services/activity-list.service';
 import { take } from 'rxjs';
 import { LoaderService } from 'src/services/loader.service';
-import { ActivityData, ActivityList } from 'src/models/activity';
+import { ActivityData, ActivityList, addActivityPayload, AddActivityResponse } from 'src/models/activity';
 import * as dayjs from 'dayjs';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalAlertComponent } from '../components/modal-alert/modal-alert.component';
 
 dayjs.locale('id',  {
   months: [] = [
@@ -93,8 +96,9 @@ export class ContentComponent implements OnInit {
   constructor(
     iconRegistry: MatIconRegistry, 
     sanitizer: DomSanitizer,
-    private activityService: AddActivityListService,
-    private loaderService: LoaderService
+    private activityService: ActivityListService,
+    private loaderService: LoaderService,
+    private dialog: MatDialog
   ) 
   {
     iconRegistry.addSvgIconLiteral('plus', sanitizer.bypassSecurityTrustHtml(plusIcon))
@@ -106,9 +110,24 @@ export class ContentComponent implements OnInit {
     return dayjs(date).locale('id')
   }
 
-  ngOnInit(): void {
-    this.loaderService.isLoading.next(true);
+  addActivity() {
+    const payload =  {
+      email: 'test@gmail.com',
+      title: 'New Activity'
+    }
+    this.activityService.addAnActivity(payload).pipe(take(1)).subscribe((response: AddActivityResponse) => {
+      if (response.id) {
+        console.log('Here')
+        this.getAllActivity()
+      }
+    }, (error) => {
+      console.log(error)
+    })
+  }
+
+  getAllActivity() {
     this.activityService.getAllActivity('test@gmail.com').pipe(take(1)).subscribe((response: ActivityList) => {
+      this.loaderService.isLoading.next(true);
       if(response) {
         this.activityData = response.data;
         this.isPopulated = true;
@@ -120,6 +139,29 @@ export class ContentComponent implements OnInit {
       console.log(error);
       this.loaderService.isLoading.next(false);
     })
+  }
+
+  onDeleteClick(activityId: number) {
+    const dialogRef = this.dialog.open(ModalAlertComponent, {
+      width: '412px',
+      disableClose: false
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'delete') {
+        console.log(result);
+      } else { /* do nothing */}
+    })
+  }
+
+  deleteActivityById(activityId: number) {
+    this.activityService.deleteActivity(activityId).pipe(take(1)).subscribe((response) => {
+      this.getAllActivity()
+    });
+  }
+
+  ngOnInit(): void {
+    this.getAllActivity()
   }
 
   protected readonly dayjs = dayjs

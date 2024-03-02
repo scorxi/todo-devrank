@@ -1,13 +1,13 @@
 <div data-cy="modal-delete" class="modal-alert-container">
-  <div class="modal-alert-icon">
+  <div>
     <mat-icon svgIcon="alert-icon" style="width: 84px; height: 84px"></mat-icon>
   </div>
-  <div class="modal-alert-caption">
-    <p>Apakah anda yakin akan menghapus activity</p>
+  <div>
+    <p>Apakah anda yakin akan menghapus</p>
     <span><strong>"Meeting dengan Client"</strong></span>
   </div>
-  <div class="modal-alert-action">
-    <button type="button" class="button-cancel">Batal</button>
-    <button type="button" class="button-approve">Hapus</button>
+  <div>
+    <button type="button" class="button-cancel" (click)="onCancel()">Batal</button>
+    <button type="button" class="button-approve" (click)="onDelete()">Hapus</button>
   </div>
 </div>

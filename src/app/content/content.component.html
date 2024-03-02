@@ -3,7 +3,7 @@
     <h1>Activity</h1>
   </div>
   <div data-cy="activity-add-button">
-    <button routerLink="/new-activity" type="button">
+    <button (click)="addActivity()" type="button">
       <mat-icon svgIcon="plus"></mat-icon> Tambah
     </button>
   </div>
@@ -15,19 +15,21 @@
 
 <div *ngIf="activityData" class="app-activity-list-container">
   <div *ngFor="let item of activityData; let i = index" class="activity-list-card">
-    <h3 class="activity-item-title">{{item.title}}</h3>
+    <div class="activity-item-title" routerLink="/new-activity/{{item.id}}">
+      <h3>{{item.title}}</h3>
+    </div>
     <div class="activity-item-footer">
       <div class="activity-item-date">{{dayjs(item.created_at).format('DD MMMM YYYY')}}</div>
-      <div class="activity-item-delete-button">
+      <div (click)="onDeleteClick(item.id)" class="activity-item-delete-button">
         <mat-icon svgIcon="delete-icon"></mat-icon>
       </div>
     </div>
   </div>
 </div>
 
-<div [ngClass]="isAlertFailed ? 'fetch-failed-show' : 'fetch-failed'">
+<!-- <div [ngClass]="isAlertFailed ? 'fetch-failed-show' : 'fetch-failed'">
   <app-modal-alert></app-modal-alert>
-</div>
+</div> -->
 
 <!-- <div class="empty-state">
   <app-alert-success></app-alert-success>
