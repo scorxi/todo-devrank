@@ -33,3 +33,8 @@ h2 {
   display: flex;
   justify-content: center;
 }
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 28px !important;
+  background-color: #FFFFFF !important;
+}

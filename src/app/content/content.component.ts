@@ -118,7 +118,6 @@ export class ContentComponent implements OnInit {
     }
     this.activityService.addAnActivity(payload).pipe(take(1)).subscribe((response: AddActivityResponse) => {
       if (response.id) {
-        console.log('Here')
         this.getAllActivity()
       }
     }, (error) => {

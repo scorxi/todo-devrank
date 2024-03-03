@@ -2,15 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { ActivityListService } from 'src/services/activity-list.service';
+import { ActivityDetail, ActivityData } from 'src/models/activity';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertFailedComponent } from '../components/alert-failed/alert-failed.component';
+import { ModalNewListComponent } from '../components/modal-new-list/modal-new-list.component';
 
 const backIcon = `
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M6.66675 16L14.6667 24" stroke="#111111" stroke-width="5" stroke-linecap="square"/>
 <path d="M6.66675 16L14.6667 8" stroke="#111111" stroke-width="5" stroke-linecap="square"/>
 </svg>
-
 `
 
 const editIcon = `
@@ -81,18 +84,43 @@ const todoEmptyState = `
 export class NewActivityComponent implements OnInit {
   isEdit: boolean = false;
   activityName: string;
+  activityDetail: ActivityDetail;
+  emptyState: boolean = true;
   isDialog: boolean;
 
   constructor(
     iconRegistry: MatIconRegistry, 
     sanitizer: DomSanitizer,
     private activityService: ActivityListService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog
     ) {
     iconRegistry.addSvgIconLiteral('backArrow', sanitizer.bypassSecurityTrustHtml(backIcon))
     iconRegistry.addSvgIconLiteral('editButton', sanitizer.bypassSecurityTrustHtml(editIcon))
     iconRegistry.addSvgIconLiteral('todoEmptyState', sanitizer.bypassSecurityTrustHtml(todoEmptyState))
     iconRegistry.addSvgIconLiteral('plus', sanitizer.bypassSecurityTrustHtml(plusIcon))
+  }
+
+  onBlur(back?: number) { // patching 
+    const payload = {
+      title: this.activityName
+    }
+    const activityId = this.route.snapshot.paramMap.get('id')
+    this.activityService.updateActivity(payload, activityId).pipe(take(1)).subscribe({
+      next: () => { 
+        if (back === 1) {
+          this.router.navigateByUrl('/');
+        }
+      },
+      error: (error) => {
+        this.dialog.open(AlertFailedComponent, {
+          data: {
+            message: 'Terjadi Kesalahan. Gagal update activity'
+          }
+        })
+      }
+    })
   }
 
   onEditClick() {
@@ -103,7 +131,16 @@ export class NewActivityComponent implements OnInit {
   }
 
   onAddClick() {
-    this.isDialog = true;
+    const dialogRef = this.dialog.open(ModalNewListComponent)
+
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result === 'save') {
+
+        } else {/* do nothing */}
+      },
+      error: (error) => {this.dialog.open(AlertFailedComponent, {data: {message: 'Terjadi Kesalahan. Gagal menyimpan list item'}})}
+    })
   }
 
   onCloseDialog() {
@@ -112,12 +149,15 @@ export class NewActivityComponent implements OnInit {
 
   ngOnInit(): void {
     const activityId = this.route.snapshot.paramMap.get('id');
-    this.activityService.getActivityById(activityId).pipe(take(1)).subscribe((response) => {
-      if (response != null) {
-        
+    this.activityService.getActivityById(activityId).pipe(take(1)).subscribe({
+      next: (response) => {
+        this.emptyState = !(response.todo_items.length > 0)
+        this.activityDetail = response;
+        this.activityName = response.title;
+      },
+      error: (error) => {
+        console.log(error)
       }
-    }, (error) => {
-      console.log(error); 
     })
   }
 

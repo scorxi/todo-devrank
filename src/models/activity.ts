@@ -9,7 +9,8 @@ export interface ActivityData {
     id: number,
     title: string,
     created_at: Date,
-    updated_at?: Date
+    updated_at?: Date,
+    email?: string
 }
 
 export interface ActivityDetail {

@@ -18,6 +18,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { AlertSuccessComponent } from './components/alert-success/alert-success.component';
 import { AlertFailedComponent } from './components/alert-failed/alert-failed.component';
+import { PillDropdownComponent } from './components/pill-dropdown/pill-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AlertFailedComponent } from './components/alert-failed/alert-failed.com
     SpinnerComponent,
     AlertDialogComponent,
     AlertSuccessComponent,
-    AlertFailedComponent
+    AlertFailedComponent,
+    PillDropdownComponent
   ],
   imports: [
     BrowserModule,

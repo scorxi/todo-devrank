@@ -36,8 +36,8 @@ export class ActivityListService {
       }))
   }
 
-  updateActivity(payload: PatchActivityPayload, activityId: number): Observable<any> {
-    return this.http.patch<any>(`${this.baseUrl}/activity-groups/${activityId}`, payload.title)
+  updateActivity(payload: PatchActivityPayload, activityId: string | null): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/activity-groups/${activityId}`, payload)
       .pipe(map((response) => {
         return response;
       }))

@@ -1,10 +1,10 @@
 <div class="app-new-activity">
   <div class="app-new-activity-placeholder">
-    <div routerLink="/" data-cy="todo-back-button" class="back-button">
+    <div (click)="onBlur(1)" data-cy="todo-back-button" class="back-button">
       <mat-icon svgIcon="backArrow"></mat-icon>
     </div>
-    <input type="text" placeholder="New Activity" (value)="activityName" matInput [(ngModel)]="activityName"
-      id="titleInput" maxlength="32">
+    <input type="text" placeholder="New Activity" (value)="activityDetail.title" matInput [(ngModel)]="activityName"
+      id="titleInput" maxlength="32" (blur)="onBlur()">
     <span (click)="onEditClick()" data-cy="todo-title-edit-button" class="edit-button">
       <mat-icon svgIcon="editButton"></mat-icon>
     </span>
@@ -20,10 +20,10 @@
 
 </div>
 
-<div *ngIf="!isDialog" data-cy="todo-empty-state" class="empty-state">
+<div *ngIf="emptyState" data-cy="todo-empty-state" class="empty-state">
   <mat-icon style="width: 541px; height: 413px;" svgIcon="todoEmptyState"></mat-icon>
 </div>
 
-<div [ngClass]="isDialog ? 'add-list-dialog-show' : 'add-list-dialog'">
+<!-- <div [ngClass]="isDialog ? 'add-list-dialog-show' : 'add-list-dialog'">
   <app-modal-new-list (isDialog)="onCloseDialog()"></app-modal-new-list>
-</div>
+</div> -->

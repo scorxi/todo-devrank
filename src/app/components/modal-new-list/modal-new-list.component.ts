@@ -1,5 +1,5 @@
-import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import { AfterViewInit, Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialogRef} from "@angular/material/dialog";
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -51,18 +51,20 @@ const purplePill = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" 
   templateUrl: './modal-new-list.component.html',
   styleUrls: ['./modal-new-list.component.scss']
 })
-export class ModalNewListComponent implements DoCheck {
+export class ModalNewListComponent implements DoCheck, AfterViewInit {
   @Input()
   listItemName: string;
   @Input()
   priority: string;
   @Output()
   isDialog: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output()
+  pillOption: EventEmitter<string> = new EventEmitter<string>();
   
   isAddValid: boolean = false;
 
   constructor(
-    // public dialogRef: MatDialogRef<ModalNewListComponent>,
+    public dialogRef: MatDialogRef<ModalNewListComponent>,
     iconRegistry: MatIconRegistry, sanitizer: DomSanitizer
   ) {
     iconRegistry.addSvgIconLiteral('close-button', sanitizer.bypassSecurityTrustHtml(closeButton))
@@ -82,7 +84,45 @@ export class ModalNewListComponent implements DoCheck {
     }
   }
 
-  onCloseClick() {
-    this.isDialog.emit(true)
+  pillOptions() {
+    console.log('pill');
+  }
+
+  onClose() {
+    this.dialogRef.close('close');
+  }
+
+  onSave() {
+    this.dialogRef.close('save');
+  }
+
+  ngAfterViewInit(): void {
+    document.addEventListener('DOMContentLoaded', () => {
+      const dropdown = document.querySelectorAll('.dropdown'); // to make it reusable if the components needed;
+
+      dropdown.forEach(dropdown => {
+        const select = dropdown.querySelector('.select');
+        const menu = dropdown.querySelector('.menu');
+        const options = dropdown.querySelectorAll('.menu li');
+        const selected: any = dropdown.querySelector('.selected');
+
+        select?.addEventListener('click', () => {
+          select.classList.toggle('select-clicked');
+          menu?.classList.toggle('menu-open');
+        });
+
+        options.forEach(option => {
+          option.addEventListener('click', () => {
+            selected.innerHTML = option.innerHTML;
+            menu?.classList.remove('menu-open');
+
+            options.forEach(option => {
+              option.classList.remove('active');
+            })
+            option.classList.add('active');
+          })
+        })
+      })
+    })
   }
 }
