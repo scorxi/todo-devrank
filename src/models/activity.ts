@@ -17,17 +17,20 @@ export interface ActivityDetail {
     id: number,
     title: string,
     created_at: string,
-    todo_items: TodoItems[]
+    todo_items: Item[]
 }
 
-export interface TodoItems {
-    id: number, 
+export interface Item {
+    id: string,
     title: string,
-    activity_group_id: number, 
-    is_active: number,
-    priority: string
+    activity_group_id: number,
+    is_active: number | boolean,
+    priority: string,
+    created_at?: string,
+    updated_at?: string
 }
 
+// Payloads
 export interface PatchActivityPayload {
     title: string
 }
@@ -43,4 +46,10 @@ export interface AddActivityResponse {
     id: number,
     title: string,
     email: string
+}
+
+export interface AddListItemPayload {
+    activity_group_id?: string | null,
+    title?: string,
+    priority?: string
 }

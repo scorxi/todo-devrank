@@ -13,13 +13,14 @@
     </div>
     <div class="modal-add-priority">
       <label data-cy="modal-add-priority-title">PRIORITY</label>
-      <app-pill-dropdown [options]="['Very High', 'High', 'Medium', 'Low', 'Very Low']">
+      <app-pill-dropdown [options]="['Very High', 'High', 'Medium', 'Low', 'Very Low']"
+        (optionSelected)="getPriority($event)">
       </app-pill-dropdown>
     </div>
   </div>
   <div class="modal-add-footer">
     <div>
-      <button data-cy="modal-add-save-button" type="button" (click)="!isDialog" [disabled]="!isAddValid">Simpan</button>
+      <button data-cy="modal-add-save-button" type="button" (click)="onSave()" [disabled]="!isAddValid">Simpan</button>
     </div>
   </div>
 </div>

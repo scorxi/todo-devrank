@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { 
@@ -15,8 +15,9 @@ import {
   templateUrl: './pill-dropdown.component.html',
   styleUrls: ['./pill-dropdown.component.scss']
 })
-export class PillDropdownComponent {
+export class PillDropdownComponent implements OnInit {
   @Input() options: string[];
+  @Output() optionSelected: EventEmitter<string> = new EventEmitter<string>();
   selectedOption: string = 'Very High';
   menuOpen: boolean = false;
 
@@ -31,6 +32,10 @@ export class PillDropdownComponent {
     iconRegistry.addSvgIconLiteral('Very Low', sanitizer.bypassSecurityTrustHtml(purplePill))
   }
 
+  ngOnInit(): void {
+      this.optionSelected.emit(this.selectedOption);
+  }
+
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
   }
@@ -38,5 +43,6 @@ export class PillDropdownComponent {
   selectOption(option: string): void {
     this.selectedOption = option;
     this.menuOpen = false;
+    this.optionSelected.emit(option);
   }
 }

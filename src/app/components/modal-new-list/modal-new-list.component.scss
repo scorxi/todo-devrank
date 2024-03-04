@@ -1,15 +1,16 @@
 @import "src/_variables.scss";
 
 .modal-add-container {
-    width: 100%;
+    width: 280px;
     height: auto;
-    padding: 24px;
+    padding: 12px;
     border-radius: 18px;
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
     max-width: 830px;
     font-weight: 600;
     @include respond-to(sm) {
         width: 320px;
+        padding: 24px;
     }
 
     @include respond-to(md) {
@@ -17,6 +18,10 @@
     }
 
     @include respond-to(lg) {
+        width: 772px;
+    }
+
+    @include respond-to(xl) {
         width: 830px;
     }
     @include apply-background-color(text-app-title)
@@ -39,7 +44,7 @@
     display: flex;
     flex-direction: column;
     gap: 48px;
-    padding: 24px 0 24px 0;
+    padding: 24px 0;
     border-bottom: 1px solid #E5E5E5;
 }
 
@@ -47,17 +52,18 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    box-sizing: border-box;
 }
 
 .modal-add-input input {
     outline: none;
     border: 1px solid #111111;
     border-radius: 12px;
-    width: 100%;
+    width: 248px;
     height: 48px;
     font-family: Poppins;
     font-size: 16px;
-    max-width: 759px;
+    max-width: 800px;
     padding-left: 12px;
     @include respond-to(sm) {
         width: 268px;
@@ -68,7 +74,11 @@
     }
 
     @include respond-to(lg) {
-        width: 759px;
+        width: 724px;
+    }
+
+    @include respond-to(xl) {
+        width: 800px;
     }
     transition: ease-in 150ms;
 }
@@ -121,7 +131,11 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 24px 24px 0 12px;
+    padding: 12px 12px 0 12px;
+
+    @include respond-to(sm) {
+        padding: 24px 24px 0 12px;
+    }
 }
 
 .modal-add-footer button {

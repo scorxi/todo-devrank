@@ -2,9 +2,8 @@
 
 .app-new-activity {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 24px;
   margin-bottom: 48px;
 
   &-placeholder {
@@ -12,6 +11,23 @@
     flex-direction: row;
     justify-content: space-around;
     gap: 12px;
+    align-items: center;
+  }
+
+  &-add-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    @include respond-to(lg) {
+      display: block;
+      flex-direction: unset;
+    }
+  }
+
+  @include respond-to(lg) {
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
   }
 }
@@ -37,8 +53,12 @@ input::placeholder {
 }
 
 #titleInput:focus {
-  width: 580px;
+  width: 290px;
   border-bottom: 1px solid #111111;
+
+  @include respond-to(md) {
+    width: 580px;
+  }
 }
 
 .app-new-activity button {
@@ -79,4 +99,45 @@ input::placeholder {
   height: 100%;
   z-index: 999; /* Ensure it's on top of other elements */
   transition: ease-in 100ms;
+}
+
+.app-list-item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  height: 512px;
+  gap: 14px;
+}
+
+.app-list-item-container input {
+  width: 22px;
+  height: 22px;
+  border: 1px solid #e5e5e5;
+}
+
+.app-list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  padding: 27px;
+  background-color: #FFFFFF;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 14px;
+}
+
+.app-list-item-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+}
+
+.app-list-item-right {
+  display: flex;
+  align-items: center;
 }

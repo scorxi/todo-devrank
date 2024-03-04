@@ -1,15 +1,15 @@
 <div class="app-new-activity">
   <div class="app-new-activity-placeholder">
-    <div (click)="onBlur(1)" data-cy="todo-back-button" class="back-button">
-      <mat-icon svgIcon="backArrow"></mat-icon>
+    <div (click)="onBlur(1)" data-cy="todo-back-button" class="back-button" style="cursor: pointer;">
+      <mat-icon svgIcon="back-arrow"></mat-icon>
     </div>
     <input type="text" placeholder="New Activity" (value)="activityDetail.title" matInput [(ngModel)]="activityName"
       id="titleInput" maxlength="32" (blur)="onBlur()">
-    <span (click)="onEditClick()" data-cy="todo-title-edit-button" class="edit-button">
-      <mat-icon svgIcon="editButton"></mat-icon>
+    <span (click)="onEditClick()" data-cy="todo-title-edit-button" class="edit-button" style="cursor: pointer;">
+      <mat-icon svgIcon="edit-button"></mat-icon>
     </span>
   </div>
-  <div>
+  <div class="app-new-activity-add-button">
     <button data-cy="todo-add-button" type="button" (click)="onAddClick()">
       <mat-icon svgIcon="plus"></mat-icon> Tambah
     </button>
@@ -20,8 +20,23 @@
 
 </div>
 
-<div *ngIf="emptyState" data-cy="todo-empty-state" class="empty-state">
+<div *ngIf="false" data-cy="todo-empty-state" class="empty-state">
   <mat-icon style="width: 541px; height: 413px;" svgIcon="todoEmptyState"></mat-icon>
+</div>
+
+<div class="empty-state">
+  <div class="app-list-item-container">
+    <div *ngFor="let item of listItems" class="app-list-item">
+      <div class="app-list-item-left">
+        <input type="checkbox">
+        <div class="app-list-item-name">{{item.title}}</div>
+        <mat-icon svgIcon="edit-button"></mat-icon>
+      </div>
+      <div class="app-list-item-right">
+        <mat-icon svgIcon="delete-icon" (click)="onDeleteClick(item.id, item.title)"></mat-icon>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- <div [ngClass]="isDialog ? 'add-list-dialog-show' : 'add-list-dialog'">
