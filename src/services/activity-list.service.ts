@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import { ActivityDetail, ActivityList, addActivityPayload, AddActivityResponse, AddListItemPayload, PatchActivityPayload } from 'src/models/activity';
+import { ActivityDetail, ActivityList, addActivityPayload, AddActivityResponse, AddListItemPayload, Item, PatchActivityPayload, UpdateListItemPayload } from 'src/models/activity';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +52,13 @@ export class ActivityListService {
 
   addListItem(payload: AddListItemPayload): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/todo-items`, payload)
+      .pipe(map((response) => {
+        return response;
+      }))
+  }
+
+  updateListItem(payload: UpdateListItemPayload, itemListId: string): Observable<Item> {
+    return this.http.patch<Item>(`${this.baseUrl}/todo-items/${itemListId}`, payload)
       .pipe(map((response) => {
         return response;
       }))

@@ -1,6 +1,6 @@
 <div data-cy="modal-add" class="modal-add-container">
   <div class="modal-add-header">
-    <div data-cy="modal-add-title">Tambah List Item</div>
+    <div data-cy="modal-add-title">{{data?.type == 'add-list' ? 'Tambah List Item' : 'Edit Item'}}</div>
     <div data-cy="modal-add-close-button" class="close-button-container" (click)="onClose()">
       <mat-icon svgIcon="close-button"></mat-icon>
     </div>

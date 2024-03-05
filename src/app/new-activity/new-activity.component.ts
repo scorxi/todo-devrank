@@ -4,11 +4,12 @@ import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, Router} from '@angular/router';
 import { ActivityListService } from 'src/services/activity-list.service';
-import { ActivityDetail, ActivityData, Item } from 'src/models/activity';
+import { ActivityDetail, ActivityData, Item, UpdateListItemPayload } from 'src/models/activity';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertFailedComponent } from '../components/alert-failed/alert-failed.component';
 import { ModalNewListComponent } from '../components/modal-new-list/modal-new-list.component';
 import { AlertDialogComponent } from '../components/alert-dialog/alert-dialog.component';
+import { redPill, orangePill, greenPill, bluePill, purplePill, deleteIcon } from 'src/assets/svgs';
 
 const backIcon = `
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,16 +77,6 @@ const todoEmptyState = `
 </svg>
 `
 
-const deleteIcon = `
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4 7H20" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M10 11V17" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M14 11V17" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M5 7L6 19C6 19.5304 6.21071 20.0391 6.58579 20.4142C6.96086 20.7893 7.46957 21 8 21H16C16.5304 21 17.0391 20.7893 17.4142 20.4142C17.7893 20.0391 18 19.5304 18 19L19 7" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M9 7V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-`
-
 @Component({
   selector: 'app-new-activity',
   templateUrl: './new-activity.component.html',
@@ -97,7 +88,8 @@ export class NewActivityComponent implements OnInit {
   activityDetail: ActivityDetail;
   emptyState: boolean = true;
   isDialog: boolean;
-  listItems: Item[] = []
+  listItems: Item[] = [];
+  isChecked: boolean = false;
 
   constructor(
     iconRegistry: MatIconRegistry, 
@@ -112,6 +104,26 @@ export class NewActivityComponent implements OnInit {
     iconRegistry.addSvgIconLiteral('todo-empty-state', sanitizer.bypassSecurityTrustHtml(todoEmptyState))
     iconRegistry.addSvgIconLiteral('plus', sanitizer.bypassSecurityTrustHtml(plusIcon))
     iconRegistry.addSvgIconLiteral('delete-icon', sanitizer.bypassSecurityTrustHtml(deleteIcon))
+    iconRegistry.addSvgIconLiteral('very-high', sanitizer.bypassSecurityTrustHtml(redPill))
+    iconRegistry.addSvgIconLiteral('high', sanitizer.bypassSecurityTrustHtml(orangePill))
+    iconRegistry.addSvgIconLiteral('normal', sanitizer.bypassSecurityTrustHtml(greenPill))
+    iconRegistry.addSvgIconLiteral('low', sanitizer.bypassSecurityTrustHtml(bluePill))
+    iconRegistry.addSvgIconLiteral('very-low', sanitizer.bypassSecurityTrustHtml(purplePill))
+  }
+
+  onChecked(item: Item) {
+    const payload: UpdateListItemPayload = {
+      is_active: item.is_active == 1 ? item.is_active = 0 : item.is_active = 1,
+      priority: item.priority
+    }
+    this.activityService.updateListItem(payload, item.id).pipe(take(1)).subscribe({
+      next: (response) => {
+        // this.getActivity(this.route.snapshot.paramMap.get('id'));
+      }, 
+      error: (error) => {
+        this.dialog.open(AlertFailedComponent, {data: {message: 'Terjadi Kesalahan. Gagal update list item'}})
+      }
+    })
   }
 
   onBlur(back?: number) { // patching 
@@ -142,8 +154,39 @@ export class NewActivityComponent implements OnInit {
     titleInput.setSelectionRange(length, length);
   }
 
+  onItemEdit(item: Item) {
+    const dialogRef = this.dialog.open(ModalNewListComponent, {data: {type: 'update-item', list_item_name: item.title}})
+
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if(result) {
+          this.itemEditHitApi(result, item.id, item.is_active);
+        } else {/* do nothing */}
+      },
+      error: () => {
+        this.dialog.open(AlertFailedComponent, {data: {message: 'Terjadi Kesalahan. Gagal update list item'}})
+      }
+    })
+  }
+
+  itemEditHitApi(item: Item, itemId: string, itemIsActive: number | boolean) {
+    const payload = {
+      is_active: itemIsActive,
+      priority: item.priority,
+      title: item.title
+    }
+    this.activityService.updateListItem(payload, itemId).pipe(take(1)).subscribe({
+      next: (response) => {
+        this.getActivity(this.route.snapshot.paramMap.get('id'));
+      },
+      error: () => {
+        this.dialog.open(AlertFailedComponent, {data: {message: 'Terjadi Kesalahan. Gagal update list item'}})
+      }
+    })
+  }
+
   onAddClick() {
-    const dialogRef = this.dialog.open(ModalNewListComponent)
+    const dialogRef = this.dialog.open(ModalNewListComponent, {data: {type: 'add-list'}})
 
     dialogRef.afterClosed().subscribe({
       next: (result) => {
@@ -190,7 +233,7 @@ export class NewActivityComponent implements OnInit {
         this.emptyState = !(response.todo_items.length > 0)
         this.activityDetail = response;
         this.activityName = response.title;
-        this.listItems = response.todo_items
+        this.listItems = response.todo_items;
       },
       error: (error) => {
         this.router.navigateByUrl('').then(() => {this.dialog.open(AlertFailedComponent, {data: {message: 'Terjadi Kesalahan. Gagal memuat activity'}})})

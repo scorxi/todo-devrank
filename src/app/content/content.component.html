@@ -20,7 +20,7 @@
     </div>
     <div class="activity-item-footer">
       <div class="activity-item-date">{{dayjs(item.created_at).format('DD MMMM YYYY')}}</div>
-      <div (click)="onDeleteClick(item.id, item.title)" class="activity-item-delete-button">
+      <div (click)="onDeleteClick(item.id, item.title)" class="activity-item-delete-button" style="cursor: pointer;">
         <mat-icon svgIcon="delete-icon"></mat-icon>
       </div>
     </div>

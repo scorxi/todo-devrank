@@ -53,3 +53,9 @@ export interface AddListItemPayload {
     title?: string,
     priority?: string
 }
+
+export interface UpdateListItemPayload {
+    is_active: number | boolean,
+    priority: string,
+    title?: string
+}
