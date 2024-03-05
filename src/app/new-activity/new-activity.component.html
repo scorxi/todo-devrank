@@ -20,8 +20,8 @@
 
 </div>
 
-<div *ngIf="false" data-cy="todo-empty-state" class="empty-state">
-  <mat-icon style="width: 541px; height: 413px;" svgIcon="todoEmptyState"></mat-icon>
+<div *ngIf="listItems.length == 0" data-cy="todo-empty-state" class="empty-state" (click)="onAddClick()">
+  <mat-icon style="width: 541px; height: 413px;" svgIcon="todo-empty-state"></mat-icon>
 </div>
 
 <div class="empty-state">

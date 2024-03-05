@@ -2,7 +2,6 @@ import { AfterViewInit, Component, DoCheck, Inject, OnInit } from '@angular/core
 import { MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
 import { AddListItemPayload } from 'src/models/activity';
 
 const closeButton = `
@@ -56,7 +55,6 @@ export class ModalNewListComponent implements DoCheck, AfterViewInit, OnInit {
 
   onSave() {
     this.itemResult.title = this.listItemName;
-    console.log(this.itemResult);
     this.dialogRef.close(this.itemResult);
   }
 

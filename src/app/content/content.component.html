@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<div *ngIf="false" class="activity-empty-state" class="empty-state">
+<div *ngIf="activityData.length == 0" class="activity-empty-state" class="empty-state" (click)="addActivity()">
   <mat-icon style="width: 541px; height: 413px;" svgIcon="activityEmptyState"></mat-icon>
 </div>
 
@@ -26,11 +26,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div [ngClass]="isAlertFailed ? 'fetch-failed-show' : 'fetch-failed'">
-  <app-modal-alert></app-modal-alert>
-</div> -->
-
-<!-- <div class="empty-state">
-  <app-alert-success></app-alert-success>
-</div> -->

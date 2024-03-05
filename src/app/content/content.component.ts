@@ -121,7 +121,7 @@ export class ContentComponent implements OnInit {
         this.getAllActivity()
       }
     }, (error) => {
-      console.log(error)
+      this.dialog.open(AlertFailedComponent, {data: {message: 'Terjadi Kesalahan. Gagal menambahkan aktivitas'}})
     })
   }
 
@@ -136,7 +136,7 @@ export class ContentComponent implements OnInit {
         this.loaderService.isLoading.next(false);
       }
     }, (error) => {
-      console.log(error);
+      this.dialog.open(AlertFailedComponent, {data: {message: 'Terjadi Kesalahan. Gagal memuat list aktivitas'}})
       this.loaderService.isLoading.next(false);
     })
   }
