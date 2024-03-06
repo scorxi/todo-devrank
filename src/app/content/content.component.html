@@ -2,9 +2,9 @@
   <div data-cy="activity-title">
     <h1>Activity</h1>
   </div>
-  <div data-cy="activity-add-button">
+  <div>
     <button (click)="addActivity()" type="button">
-      <mat-icon svgIcon="plus"></mat-icon> Tambah
+      <mat-icon data-cy="activity-add-button" svgIcon="plus"></mat-icon> Tambah
     </button>
   </div>
 </div>
@@ -22,9 +22,8 @@
     <div class="activity-item-footer">
       <div data-cy="activity-item-date" class="activity-item-date">{{dayjs(item.created_at).format('DD MMMM YYYY')}}
       </div>
-      <div data-cy="activity-item-delete-button" (click)="onDeleteClick(item.id, item.title)"
-        class="activity-item-delete-button" style="cursor: pointer;">
-        <mat-icon svgIcon="delete-icon"></mat-icon>
+      <div (click)="onDeleteClick(item.id, item.title)" class="activity-item-delete-button" style="cursor: pointer;">
+        <mat-icon data-cy="activity-item-delete-button" svgIcon="delete-icon"></mat-icon>
       </div>
     </div>
   </div>

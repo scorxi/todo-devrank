@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div data-cy="modal-add-priority-dropdown" class="dropdown">
   <div class="select" (click)="toggleMenu()">
     <span class="selected">
       <mat-icon style="width: 17px; height: 17px; margin-right: 12px;" [svgIcon]="selectedOption"></mat-icon>
@@ -9,7 +9,7 @@
     </div>
   </div>
   <ul class="menu" [ngClass]="{'menu-open': menuOpen}">
-    <li *ngFor="let option of options" (click)="selectOption(option)"
+    <li *ngFor="let option of options" data-cy="modal-add-priority-option" (click)="selectOption(option)"
       [ngClass]="{ 'active': selectedOption === option }">
       <mat-icon style="width: 17px; height: 17px; margin-right: 12px;" [svgIcon]="option"></mat-icon> {{option}}
     </li>
