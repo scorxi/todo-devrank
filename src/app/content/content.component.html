@@ -9,18 +9,21 @@
   </div>
 </div>
 
-<div *ngIf="activityData.length == 0" class="activity-empty-state" class="empty-state" (click)="addActivity()">
+<div data-cy="activity-empty-state" *ngIf="activityData.length == 0" class="activity-empty-state" class="empty-state"
+  (click)="addActivity()">
   <mat-icon style="width: 541px; height: 413px;" svgIcon="activityEmptyState"></mat-icon>
 </div>
 
 <div *ngIf="activityData" class="app-activity-list-container">
-  <div *ngFor="let item of activityData; let i = index" class="activity-list-card">
-    <div class="activity-item-title" routerLink="/new-activity/{{item.id}}">
+  <div *ngFor="let item of activityData; let i = index" data-cy="activity-item-i" class="activity-list-card">
+    <div data-cy="activity-item-title" class="activity-item-title" routerLink="/new-activity/{{item.id}}">
       <h3>{{item.title}}</h3>
     </div>
     <div class="activity-item-footer">
-      <div class="activity-item-date">{{dayjs(item.created_at).format('DD MMMM YYYY')}}</div>
-      <div (click)="onDeleteClick(item.id, item.title)" class="activity-item-delete-button" style="cursor: pointer;">
+      <div data-cy="activity-item-date" class="activity-item-date">{{dayjs(item.created_at).format('DD MMMM YYYY')}}
+      </div>
+      <div data-cy="activity-item-delete-button" (click)="onDeleteClick(item.id, item.title)"
+        class="activity-item-delete-button" style="cursor: pointer;">
         <mat-icon svgIcon="delete-icon"></mat-icon>
       </div>
     </div>
