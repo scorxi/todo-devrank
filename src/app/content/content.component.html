@@ -15,7 +15,7 @@
 </div>
 
 <div *ngIf="activityData" class="app-activity-list-container">
-  <div *ngFor="let item of activityData; let i = index" data-cy="activity-item-i" class="activity-list-card">
+  <div *ngFor="let item of activityData; let i = index" data-cy="activity-item" class="activity-list-card">
     <div data-cy="activity-item-title" class="activity-item-title" routerLink="/new-activity/{{item.id}}">
       <h3>{{item.title}}</h3>
     </div>
