@@ -24,16 +24,19 @@
   <div class="app-list-item-container">
     <div *ngFor="let item of listItems; let i = index" data-cy="todo-item" class="app-list-item">
       <div class="app-list-item-left">
-        <input data-cy="todo-item-checkbox" type="checkbox" [checked]="item.is_active === 0" (change)="onChecked(item)">
+        <input data-cy="todo-item-checkbox" type="checkbox" [checked]="item.is_active === 0" (change)="onChecked(item)"
+          style="cursor: pointer;">
         <mat-icon data-cy="todo-item-priority-indicator" style="margin-top: 4px; width: 20px; height: 20px;"
           [svgIcon]="item.priority">
         </mat-icon>
         <div data-cy="todo-item-title" class="app-list-item-name" [ngClass]="{'todo-done': item.is_active === 0}">
           {{item.title}}</div>
-        <mat-icon data-cy="todo-item-edit-button" svgIcon="edit-button" (click)="onItemEdit(item)"></mat-icon>
+        <mat-icon data-cy="todo-item-edit-button" svgIcon="edit-button" (click)="onItemEdit(item)"
+          style="cursor: pointer;"></mat-icon>
       </div>
       <div class="app-list-item-right">
-        <mat-icon data-cy="todo-item-delete-button" svgIcon="delete-icon" (click)="onDeleteClick(item.id, item.title)">
+        <mat-icon data-cy="todo-item-delete-button" svgIcon="delete-icon" (click)="onDeleteClick(item.id, item.title)"
+          style="cursor: pointer;">
         </mat-icon>
       </div>
     </div>

@@ -10,6 +10,7 @@ import { AlertFailedComponent } from '../components/alert-failed/alert-failed.co
 import { ModalNewListComponent } from '../components/modal-new-list/modal-new-list.component';
 import { AlertDialogComponent } from '../components/alert-dialog/alert-dialog.component';
 import { redPill, orangePill, greenPill, bluePill, purplePill, deleteIcon } from 'src/assets/svgs';
+import { AlertSuccessComponent } from '../components/alert-success/alert-success.component';
 
 const backIcon = `
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -218,7 +219,10 @@ export class NewActivityComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'delete') {
         this.activityService.deleteListItem(listItemId).pipe(take(1)).subscribe({
-          next: () => { this.getActivity(this.route.snapshot.paramMap.get('id')) },
+          next: () => { 
+            this.dialog.open(AlertSuccessComponent, {data: {type: 'Todo item'}})
+            this.getActivity(this.route.snapshot.paramMap.get('id')) 
+          },
           error: (error) => {
             this.dialog.open(AlertFailedComponent, {data: {message: 'Terjadi Kesalahan. Gagal menghapus list item'}})
           }
